@@ -7,6 +7,7 @@ import { ProjectModule } from './project/project.module';
 import { TaskModule } from './task/task.module';
 import { CommentModule } from './comment/comment.module';
 import { ChecklistModule } from './checklist/checklist.module';
+import { HealthController } from './health/health.controller';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { ChecklistModule } from './checklist/checklist.module';
     CommentModule,
     ChecklistModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, HealthController],
   providers: [AppService],
 })
 export class AppModule {}

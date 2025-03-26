@@ -1,138 +1,115 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Task Todo - Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API backend para o aplicativo de gerenciamento de tarefas desenvolvido com NestJS e PostgreSQL.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Executando com Docker
 
-## Description
+Este projeto está configurado para ser executado facilmente usando Docker e Docker Compose, incluindo o frontend, backend e banco de dados.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Pré-requisitos
 
-## Project setup
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-```bash
-$ npm install
-```
+### Como Executar
 
-## Compile and run the project
+1. **Clone os repositórios**
 
-```bash
-# development
-$ npm run start
+   Certifique-se de que os repositórios do frontend e backend estejam no mesmo diretório pai:
 
-# watch mode
-$ npm run start:dev
+   ```
+   /home/fabiolucas/Área de trabalho/
+   ├── task-todo-back/ (este repositório)
+   └── to-do-app-next/ (repositório do frontend)
+   ```
 
-# production mode
-$ npm run start:prod
-```
+2. **Construa e inicie os containers**
 
-## Run tests
+   No diretório do backend, execute:
 
-```bash
-# unit tests
-$ npm run test
+   ```bash
+   cd '/home/fabiolucas/Área de trabalho/task-todo-back'
+   docker-compose up -d
+   ```
 
-# e2e tests
-$ npm run test:e2e
+   Isso vai construir e iniciar todos os serviços definidos no arquivo docker-compose.yml.
 
-# test coverage
-$ npm run test:cov
-```
+3. **Verifique se os containers estão rodando**
 
-## Deployment
+   ```bash
+   docker ps
+   ```
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+   Você deverá ver três containers em execução:
+   - task-todo-back_frontend_1
+   - task-todo-back_backend_1
+   - task-todo-back_database_1
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Acesso às Aplicações
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+- **Frontend**: http://localhost:3500
+- **Backend API**: http://localhost:3600/api
+- **API de verificação de saúde**: http://localhost:3600/api/health
+- **Banco de Dados PostgreSQL**:
+  - Host: localhost
+  - Porta: 5433
+  - Usuário: postgres
+  - Senha: postgres
+  - Banco de dados: tododb
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Configuração de Portas
 
-## Resources
+O projeto utiliza portas não convencionais para evitar conflitos com outras aplicações:
 
-Check out a few resources that may come in handy when working with NestJS:
+- Frontend: 3500 (mapeada para a porta 3000 do container)
+- Backend: 3600 (mapeada para a porta 3000 do container)
+- PostgreSQL: 5433 (mapeada para a porta 5432 do container)
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Logs dos Containers
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
-
-# Task Todo Backend
-
-## Setup and Running
-
-### Database Setup with Docker
-
-To start the PostgreSQL database:
+Para verificar os logs de cada container:
 
 ```bash
-docker-compose up -d
+# Frontend
+docker logs task-todo-back_frontend_1
+
+# Backend
+docker logs task-todo-back_backend_1
+
+# Banco de Dados
+docker logs task-todo-back_database_1
 ```
 
-This will start a PostgreSQL container with the following configuration:
-- Host: localhost
-- Port: 5432
-- Username: postgres
-- Password: postgres
-- Database name: task_todo_db
-
-### Starting the Application
-
-```bash
-npm install
-npm run start:dev
-```
-
-The API will be available at http://localhost:8080
-
-### Stopping the Database
+### Parando os Containers
 
 ```bash
 docker-compose down
 ```
 
-To remove all data and start fresh:
+Para remover também os volumes (dados do banco de dados):
 
 ```bash
 docker-compose down -v
 ```
+
+### Reconstruindo as Imagens
+
+Se você fizer alterações no código e precisar reconstruir as imagens:
+
+```bash
+docker-compose up --build -d
+```
+
+### Solução de Problemas
+
+1. **Erro de conexão com o banco de dados**
+   - Verifique se o banco de dados está em execução: `docker ps`
+   - Verifique os logs do container do banco de dados: `docker logs task-todo-back_database_1`
+   - Certifique-se de que o arquivo .env tem os valores corretos para conectar ao banco de dados
+
+2. **Frontend não consegue se conectar ao backend**
+   - Verifique se a variável NEXT_PUBLIC_API_URL está configurada como http://localhost:3600/api
+   - Verifique se o CORS está configurado corretamente no backend
+
+3. **Portas já em uso**
+   - Se alguma porta estiver em uso, você pode modificar o mapeamento no arquivo docker-compose.yml

@@ -7,6 +7,7 @@ import { ProjectModule } from './project/project.module';
 import { TaskModule } from './task/task.module';
 import { CommentModule } from './comment/comment.module';
 import { ChecklistModule } from './checklist/checklist.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 import { HealthController } from './health/health.controller';
 
 @Module({
@@ -30,6 +31,7 @@ import { HealthController } from './health/health.controller';
     TaskModule,
     CommentModule,
     ChecklistModule,
+    AnalyticsModule,
   ],
   controllers: [AppController, HealthController],
   providers: [AppService],

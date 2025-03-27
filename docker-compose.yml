@@ -4,12 +4,19 @@ services:
   frontend:
     build:
       context: ../to-do-app-next
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:3600/api
+      dockerfile: Dockerfile
     ports:
       - "3500:3000"  # Mapeando porta 3500 externa para 3000 interna
     depends_on:
       - backend
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:3600/api
+    volumes:
+      - ../to-do-app-next:/app
+      - /app/node_modules
+      - /app/.next
     restart: always
     networks:
       - app-network
@@ -36,7 +43,7 @@ services:
   database:
     image: postgres:14
     ports:
-      - "5433:5432"  # Mapeando porta 5433 externa para 5432 interna
+      - "5434:5432"  # Changed from 5433 to 5434 to avoid conflict
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -58,5 +65,7 @@ networks:
   app-network:
     driver: bridge
 
+# Using named volumes instead of host path to avoid permission issues
 volumes:
   postgres_data:
+    driver: local

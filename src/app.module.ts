@@ -18,13 +18,14 @@ import { HealthController } from './health/health.controller';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('DATABASE_HOST'),
-        port: configService.get<number>('DATABASE_PORT'),
-        username: configService.get('DATABASE_USERNAME'),
-        password: configService.get('DATABASE_PASSWORD'),
-        database: configService.get('DATABASE_NAME'),
+        host: 'database', // Use the service name from docker-compose
+        port: 5432,
+        username: 'postgres',
+        password: 'postgres',
+        database: 'tododb',
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true, // Set to false in production
+        logging: true, // Enable logging to debug connection issues
       }),
     }),
     ProjectModule,
